@@ -27,6 +27,10 @@ return new class extends Migration
             $table->timestamps();
 
             //FK
+            $table->index('siswa_profile_id');
+            $table->index('guru_profile_id');
+            $table->index('admin_profile_id');
+
             $table->foreign('siswa_profile_id')->references('user_id')->on('siswa_profiles')->onDelete('cascade');
             $table->foreign('guru_profile_id')->references('user_id')->on('guru_profiles')->onDelete('cascade');
             $table->foreign('admin_profile_id')->references('user_id')->on('admin_profiles')->onDelete('cascade');

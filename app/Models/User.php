@@ -30,6 +30,21 @@ class User extends Authenticatable
         'siswa_profile_id',
     ];
 
+    public function siswaProfile()
+    {
+        return $this->hasOne(SiswaProfile::class, 'user_id', 'siswa_profile_id');
+    }
+
+    public function guruProfile()
+    {
+        return $this->hasOne(GuruProfile::class, 'user_id', 'guru_profile_id');
+    }
+
+    public function adminProfile()
+    {
+        return $this->hasOne(AdminProfile::class, 'id', 'admin_profile_id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -52,4 +67,6 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
 }

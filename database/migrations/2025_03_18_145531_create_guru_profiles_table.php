@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('guru_profiles', function (Blueprint $table) {
             $table->id();
+            $table->string('user_id')->unique();
+            $table->string('nig', 10)->unique();
+            $table->string('mata_pelajaran', 100);
             $table->timestamps();
         });
     }

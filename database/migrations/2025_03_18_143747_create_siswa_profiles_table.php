@@ -13,15 +13,13 @@ return new class extends Migration
     {
         Schema::create('siswa_profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
-            $table->string('nis', 10)->unique();
+            $table->string('user_id')->unique();
+            $table->string('nis', 20)->unique();
             $table->string('kelas', 20);
-            $table->string('jurusan', 5);
+            $table->string('jurusan', 50);
             $table->timestamps();
 
-            //FK
-            $table->index('user_id');
-            $table->foreign('user_id')->references('siswa_user_id')->on('users')->onDelete('cascade');
+        
         });
     }
 

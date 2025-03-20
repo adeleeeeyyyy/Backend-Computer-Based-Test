@@ -13,5 +13,7 @@ class SiswaProfile extends Model
         "jurusan",
     ];
 
-
+    public function user() {
+        return $this->belongsTo(User::class,"siswa_profile_id");
+    }
 }
