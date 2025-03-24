@@ -7,5 +7,7 @@ use Illuminate\Http\Request;
 
 class SoalController extends Controller
 {
-    //
+    public function index() {
+        
+    }
 }
