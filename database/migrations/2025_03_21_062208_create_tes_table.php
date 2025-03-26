@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamp('tanggal_mulai');
             $table->timestamp('tanggal_selesai');
             $table->integer('batas_percobaan');
-            $table->string('status');
+            $table->enum('status', ['aktif','nonaktif','pemeliharaan'])->default('nonaktif');
             $table->string('password_tes');
             $table->string('kategori');
             $table->timestamps();
