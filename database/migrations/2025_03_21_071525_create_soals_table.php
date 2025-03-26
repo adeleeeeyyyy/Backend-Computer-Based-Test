@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('tes_id');
             $table->string('jenis_soal');
             $table->longText('pertanyaan');
-            $table->string('file_gambar');
+            $table->string('file_gambar')->nullable();
             $table->integer('poin');
             $table->timestamps();
 
