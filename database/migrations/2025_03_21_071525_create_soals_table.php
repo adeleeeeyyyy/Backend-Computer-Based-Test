@@ -23,7 +23,7 @@ return new class extends Migration
 
             //FK
             $table->index('tes_id');
-            $table->foreign('tes_id')->references('tes_id')->on('soals')->onDelete('cascade');
+            $table->foreign('tes_id')->references('tes_id')->on('tes')->onDelete('cascade');
         });
     }
 
