@@ -14,19 +14,21 @@ return new class extends Migration
         Schema::create('tes', function (Blueprint $table) {
             $table->id();
             $table->string('tes_id')->unique();
-            $table->string('kode_tes', 20)->unique();
-            $table->string('guru_id', 20);
+            $table->string('kode_tes')->unique();
+            $table->string('guru_id');
+            $table->string('jenis_ujian');
             $table->string('judul', 200);
             $table->string('mapel');
-            $table->json    ('kelas');
+            $table->json('kelas');
             $table->string('deskripsi');
+            $table->enum("semester", [0, 1, 2, 3, 4, 5, 6])->default("0");
+            $table->time('jam_mulai');
             $table->integer('durasi_menit');
             $table->timestamp('tanggal_mulai');
             $table->timestamp('tanggal_selesai');
             $table->integer('batas_percobaan');
             $table->enum('status', ['aktif','nonaktif','pemeliharaan'])->default('nonaktif');
             $table->string('password_tes');
-            $table->string('kategori');
             $table->timestamps();
 
             //FK
