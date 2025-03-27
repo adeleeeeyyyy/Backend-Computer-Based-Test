@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('kode_tes', 20)->unique();
             $table->string('guru_id', 20);
             $table->string('judul', 200);
+            $table->string('mapel');
+            $table->json    ('kelas');
             $table->string('deskripsi');
             $table->integer('durasi_menit');
             $table->timestamp('tanggal_mulai');
