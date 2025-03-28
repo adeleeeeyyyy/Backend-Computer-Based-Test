@@ -29,7 +29,7 @@ class TesController extends Controller
 
             $tes = null;
             DB::transaction(function() use($request, &$tes) {
-                // $user = auth()->user();
+                $user = auth()->user()->guru_profile_id;
 
                 $int = mt_rand(100000, 999999);
                 $kode_tes = "$request->jenis_ujian$request->semester-$request->mapel-". $int;
@@ -37,7 +37,7 @@ class TesController extends Controller
                 $tes = Tes::create([
                     "tes_id" => uniqid("tes_"),
                     "kode_tes" => $kode_tes,
-                    "guru_id" => auth()->user()->guru_profile_id,
+                    "guru_id" => $user,
                     "judul" => $request->judul,
                     "deskripsi" => $request->deskripsi,
                     "jam_mulai" => $request->jam_mulai,
