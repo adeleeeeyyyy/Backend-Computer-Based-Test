@@ -8,22 +8,23 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class TesResource extends JsonResource
 {
     //define properti
-    public $status;
+    public $success;
     public $message;
     public $data;
 
     /**
      * __construct
      *
-     * @param  mixed $status
+     * @param  mixed $success
      * @param  mixed $message
      * @param  mixed $resource
      * @return void
      */
-    public function __construct($status, $message, $data)
+    public function __construct($success, $message, $data)
     {
-        parent::__construct($data);
-        $this->status  = $status;
+        // parent::__construct($data);
+        $this->data = $data;
+        $this->success  = $success;
         $this->message = $message;
     }
 
@@ -36,7 +37,7 @@ class TesResource extends JsonResource
     public function toArray(Request $request): array
     {
         return  [
-            "status" => $this->status,
+            "success" => $this->success,
             "message" => $this->message,
             "data" => $this->data
         ];
