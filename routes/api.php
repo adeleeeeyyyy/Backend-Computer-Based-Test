@@ -22,5 +22,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('/guru')->group(function() {
         Route::post('/createtes', [TesController::class,'createTes']);
+        Route::put('/updatetes/{tes_id}', [TesController::class,'updateTes']);
+        Route::get('/showtes', [TesController::class, 'showTes']);
+        Route::get('/showtes/{tes_id}', [TesController::class, 'showTesById']);
+        Route::put('/setstatus/{tes_id}', [TesController::class, 'setStatus']);
+        Route::delete('/deletetes/{tes_id}', [TesController::class, 'deleteTes']);
+        Route::delete('/deletealltes', [TesController::class, 'deleteAllTes']);
     });
 });
