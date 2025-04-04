@@ -6,6 +6,7 @@ use App\Models\Soal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Tes;
 
 class SoalController extends Controller
 {
@@ -40,15 +41,22 @@ class SoalController extends Controller
         });
         return response()->json([
             'success'=> true,
-            'data' => $soal->only('pertanyaan')
+            'data' => $soal->only('pertanyaan', 'soal_id', 'jenis_soal', 'file_gambar', 'poin')
         ], 201);
     }
 
-    public function showSoal() {
-        $soal = Soal::all();
+    public function showSoal($tes_id) {
+        $soal = Soal::where('tes_id', '=', $tes_id)->get();
         return response()->json([
             'success' => true,
             'data' => $soal
         ], 200);
+    }
+
+    public function deleteAllSoal($tes_id) {
+        $soals = Soal::where('tes_id', '=', $tes_id)->get();
+        foreach ($soals as $soal) {
+            $soal->delete();
+        }
     }
 }
