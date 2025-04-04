@@ -13,4 +13,8 @@ class Tes extends Model
     protected $casts = [
         'kelas' => 'array',
     ];
+
+    public function soal() {
+        return $this->hasMany(Soal::class, 'tes_id', 'tes_id'); 
+    }
 }
