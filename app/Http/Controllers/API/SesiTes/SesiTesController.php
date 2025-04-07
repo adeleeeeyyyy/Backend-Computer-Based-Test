@@ -1,8 +1,8 @@
 <?php
 // app/Http/Controllers/SesiTesController.php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\API\SesiTes;
+use App\Http\Controllers\Controller;
 use App\Models\SesiTes;
 use App\Models\SiswaProfile;
 use App\Models\Tes;

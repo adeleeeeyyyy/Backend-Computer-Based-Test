@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Guru\TesController;
 use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\Guru\SoalController;
-
+use App\Http\Controllers\API\SesiTes\SesiTesController;
+use App\Http\Controllers\API\MonitoringAktivitas\MonitoringAktivitasController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -14,7 +15,7 @@ Route::get('/user', function (Request $request) {
 
 Route::prefix('auth')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
 });
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -38,22 +39,26 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('/deleteall/{tes_id}', [SoalController::class, 'deleteAllSoal']);
         });
 
-        Route::prefix('/sesi-tes')->group(function() {
-            Route::get('/', [SesiTesController::class, 'index']);
-            Route::get('/{id}', [SesiTesController::class, 'show']);
-            Route::post('/', [SesiTesController::class, 'store']);
-            Route::put('/{id}', [SesiTesController::class, 'update']);
-            Route::delete('/{id}', [SesiTesController::class, 'destroy']);
-        });
-
-        Route::prefix('/monitoring-aktivitas')->group(function() {
-            Route::get('/', [MonitoringAktivitasController::class, 'index']);
-            Route::get('/{id}', [MonitoringAktivitasController::class, 'show']);
-            Route::post('/', [MonitoringAktivitasController::class, 'store']);
-            Route::put('/{id}', [MonitoringAktivitasController::class, 'update']);
-            Route::delete('/{id}', [MonitoringAktivitasController::class, 'destroy']);
-        });
-
+        
 
     });
+    
+
+    
+
+});
+Route::prefix('/monitoring-aktivitas')->group(function() {
+    Route::get('/show', [MonitoringAktivitasController::class, 'index']);
+    Route::get('/{id}', [MonitoringAktivitasController::class, 'show']);
+    Route::post('/insert', [MonitoringAktivitasController::class, 'store']);
+    Route::put('/{id}', [MonitoringAktivitasController::class, 'update']);
+    Route::delete('/{id}', [MonitoringAktivitasController::class, 'destroy']);
+});
+
+Route::prefix('/sesi-tes')->group(function() {
+    Route::get('/', [SesiTesController::class, 'index']);
+    Route::get('/{id}', [SesiTesController::class, 'show']);
+    Route::post('/', [SesiTesController::class, 'store']);
+    Route::put('/{id}', [SesiTesController::class, 'update']);
+    Route::delete('/{id}', [SesiTesController::class, 'destroy']);
 });

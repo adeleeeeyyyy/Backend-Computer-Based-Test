@@ -1,46 +1,55 @@
 <?php
-// app/Http/Controllers/MonitoringAktivitasController.php
 
-namespace App\Http\Controllers;
 
+namespace App\Http\Controllers\API\MonitoringAktivitas;
 use App\Models\MonitoringAktivitas;
+use App\Models\SesiTes;
+use App\Models\SiswaProfile;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class MonitoringAktivitasController extends Controller
 {
-    // Menampilkan semua data monitoring
+   
     public function index()
     {
         $data = MonitoringAktivitas::with('sesi')->get();
         return response()->json($data);
     }
 
-    // Menampilkan monitoring berdasarkan ID
     public function show($id)
     {
         $item = MonitoringAktivitas::with('sesi')->findOrFail($id);
         return response()->json($item);
     }
 
-    // Menyimpan data baru monitoring aktivitas
     public function store(Request $request)
     {
+
+
+
         $request->validate([
             'sesi_id' => 'required|exists:sesi_tes,id',
             'jenis_aktivitas' => 'required|string',
             'waktu' => 'required|date',
             'screenshot' => 'nullable|string|max:255',
         ]);
+        
 
         $data = MonitoringAktivitas::create($request->all());
-
-        return response()->json([
-            'message' => 'Aktivitas berhasil ditambahkan',
-            'data' => $data
-        ], 201);
+        //cek apakah insert berhasil atau tidak
+        if ($data) {
+            return response()->json([
+                'message' => 'Aktivitas berhasil ditambahkan',
+                'data' => $data
+            ], 201);
+        } else {
+            return response()->json([
+                'message' => 'Aktivitas gagal ditambahkan'
+            ], 500);
+        }
     }
 
-    // Mengupdate data monitoring
     public function update(Request $request, $id)
     {
         $data = MonitoringAktivitas::findOrFail($id);
