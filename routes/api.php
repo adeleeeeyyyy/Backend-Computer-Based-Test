@@ -35,7 +35,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::prefix('/soal')->group(function() {
             Route::post('/create/{tes_id}', [SoalController::class,'createSoal']);
             Route::get('/show/{tes_id}', [SoalController::class, 'showSoal']);
+            Route::put('/update/{soal_id}', [SoalController::class, 'updateSoal']);
             Route::delete('/deleteall/{tes_id}', [SoalController::class, 'deleteAllSoal']);
+            Route::delete('/delete/{soal_id}', [SoalController::class, 'deleteSoalindividu']);
         });
 
     });
