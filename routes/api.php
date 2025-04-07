@@ -38,5 +38,22 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('/deleteall/{tes_id}', [SoalController::class, 'deleteAllSoal']);
         });
 
+        Route::prefix('/sesi-tes')->group(function() {
+            Route::get('/', [SesiTesController::class, 'index']);
+            Route::get('/{id}', [SesiTesController::class, 'show']);
+            Route::post('/', [SesiTesController::class, 'store']);
+            Route::put('/{id}', [SesiTesController::class, 'update']);
+            Route::delete('/{id}', [SesiTesController::class, 'destroy']);
+        });
+
+        Route::prefix('/monitoring-aktivitas')->group(function() {
+            Route::get('/', [MonitoringAktivitasController::class, 'index']);
+            Route::get('/{id}', [MonitoringAktivitasController::class, 'show']);
+            Route::post('/', [MonitoringAktivitasController::class, 'store']);
+            Route::put('/{id}', [MonitoringAktivitasController::class, 'update']);
+            Route::delete('/{id}', [MonitoringAktivitasController::class, 'destroy']);
+        });
+
+
     });
 });
