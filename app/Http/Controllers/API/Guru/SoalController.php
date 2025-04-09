@@ -82,7 +82,7 @@ class SoalController extends Controller
             'message' => 'Soal sukse dihapus'
         ], 200);
     }
-    
+
     public function updateSoal(Request $request, $soal_id) {
         $request->validate([
             'jenis_soal' => 'nullable|string',
@@ -92,39 +92,43 @@ class SoalController extends Controller
         ]);
 
         $soal = Soal::where('soal_id', '=', $soal_id)->first();
-        
+
         if (!$soal) {
             return response()->json([
                 'success' => false,
                 'message' => 'Soal tidak ditemukan'
             ], 404);
         }
-        
-        // Update jika disediakan dalam permintaan 
+
+        // Update jika disediakan dalam permintaan
         if ($request->has('jenis_soal')) {
             $soal->jenis_soal = $request->jenis_soal;
         }
-        
+
         if ($request->has('pertanyaan')) {
             $soal->pertanyaan = $request->pertanyaan;
         }
-        
+
         if ($request->has('poin')) {
             $soal->poin = $request->poin;
         }
-        
+
         // Menangani unggahan file jika gambar baru disediakan
         if ($request->hasFile('file_gambar')) {
             $file_gambar = $request->file('file_gambar')->store('gambar_soal', 'public');
             $soal->file_gambar = $file_gambar;
         }
-        
+
         $soal->save();
-        
+
         return response()->json([
             'success' => true,
             'message' => 'Soal berhasil diperbarui',
             'data' => $soal->only('pertanyaan', 'soal_id', 'jenis_soal', 'file_gambar', 'poin')
         ], 200);
+    }
+
+    public function soalReport($tes_id, $murid_id) {
+
     }
 }
