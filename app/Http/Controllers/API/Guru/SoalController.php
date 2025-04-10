@@ -65,7 +65,7 @@ class SoalController extends Controller
         ], 200);
     }
 
-    public function deleteSoalindividu(Request $request, $soal_id) {
+    public function deleteSoalById(Request $request, $soal_id) {
         $soal = Soal::where("soal_id", '=', $soal_id)->first();
 
         if (!$soal) {
@@ -128,7 +128,4 @@ class SoalController extends Controller
         ], 200);
     }
 
-    public function soalReport($tes_id, $murid_id) {
-
-    }
 }
