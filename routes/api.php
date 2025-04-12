@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Guru\TesController;
 use App\Http\Controllers\API\Auth\AuthController;
+use App\Http\Controllers\API\Guru\GuruController;
 use App\Http\Controllers\API\Guru\SoalController;
 
 
@@ -38,6 +39,11 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::put('/update/{soal_id}', [SoalController::class, 'updateSoal']);
             Route::delete('/deleteall/{tes_id}', [SoalController::class, 'deleteAllSoal']);
             Route::delete('/delete/{soal_id}', [SoalController::class, 'deleteSoalById']);
+        });
+
+        Route::prefix('/misc')->group(function() {
+            Route::get('/siswa', [GuruController::class, 'seeSiswa']);
+            Route::get('/siswa/{class}', [GuruController::class, 'seeSiswaByClass']);
         });
 
     });
