@@ -17,9 +17,10 @@ return new class extends Migration
             $table->string('nis', 20)->unique();
             $table->string('kelas', 20);
             $table->string('jurusan', 50);
+            $table->enum('status', ['mengerjakan_ujian', 'nonaktif'])->default('aktif');
             $table->timestamps();
 
-        
+
         });
     }
 
