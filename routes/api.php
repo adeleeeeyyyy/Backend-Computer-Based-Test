@@ -54,5 +54,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/siswa/{class}', [GuruController::class, 'seeSiswaByClass']);
         });
 
+        
+
     });
 });
