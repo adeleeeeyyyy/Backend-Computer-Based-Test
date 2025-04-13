@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string("siswa_id");
             $table->timestamp(  "jam_mulai");
             $table->timestamp("jam_selesai");
-            
             $table->timestamps();
         });
     }
