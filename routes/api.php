@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Guru\JawabanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Guru\TesController;
@@ -39,6 +40,13 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::put('/update/{soal_id}', [SoalController::class, 'updateSoal']);
             Route::delete('/deleteall/{tes_id}', [SoalController::class, 'deleteAllSoal']);
             Route::delete('/delete/{soal_id}', [SoalController::class, 'deleteSoalById']);
+        });
+
+        Route::prefix('/jawaban')->group(function() {
+            Route::post('/create/{soal_id}', [JawabanController::class,'createJawaban']);
+            Route::put('/update/{jawaban_id}', [JawabanController::class,'updateJawaban']);
+            Route::get('/show/{soal_id}', [JawabanController::class, 'seeAllJawabans']);
+            Route::delete('/delete/{jawaban_id}', [JawabanController::class, 'deleteJawaban']);
         });
 
         Route::prefix('/misc')->group(function() {
