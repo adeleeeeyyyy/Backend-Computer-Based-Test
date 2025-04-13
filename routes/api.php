@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\Guru\JawabanController;
+use App\Http\Controllers\API\Siswa\SiswaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Guru\TesController;
@@ -23,6 +24,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
 
+    Route::prefix('/siswa')->group(function () {
+        Route::post('/sendpg/{tes_id}/{soal_id}/{jawaban_id}', [SiswaController::class,'sendJawabanPilihanGanda']);
+    });
+
+    //Route API guru
     Route::prefix('/guru')->group(function() {
         Route::prefix('/tes')->group(function() {
             Route::post('/create', [TesController::class,'createTes']);
@@ -54,7 +60,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/siswa/{class}', [GuruController::class, 'seeSiswaByClass']);
         });
 
-        
+
 
     });
 });
