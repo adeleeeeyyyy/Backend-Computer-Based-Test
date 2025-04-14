@@ -12,6 +12,8 @@ class SiswaController extends Controller
         $siswa = auth()->user()->siswa_profile_id;
 
         try {
+            DB::beginTransaction();
+
             $existingJawaban = DB::table('jawaban_pesertas')
                 ->where('siswa_id', $siswa)
                 ->where('tes_id', $tes_id)
@@ -20,6 +22,8 @@ class SiswaController extends Controller
                 ->first();
 
             if ($existingJawaban) {
+                DB::rollBack();
+
                 return response()->json([
                     'success' => true,
                     'message' => 'Jawaban sudah ada'
@@ -32,6 +36,8 @@ class SiswaController extends Controller
                 ->first();
 
             if (!$pilihanJawaban) {
+                DB::rollBack();
+
                 return response()->json([
                     'success' => false,
                     'message' => 'Jawaban yang diberikan tidak memiliki soal_id yang sesuai'
@@ -45,11 +51,15 @@ class SiswaController extends Controller
                 "jawaban" => $jawaban_id
             ]);
 
+            DB::commit();
+
             return response()->json([
                 'success' => true,
                 'message' => 'Jawaban berhasil dikirim'
             ], 200);
         } catch (\Exception $e) {
+            DB::rollBack();
+
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage()
