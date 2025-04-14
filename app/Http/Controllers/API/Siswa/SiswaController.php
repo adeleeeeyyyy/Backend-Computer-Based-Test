@@ -66,4 +66,33 @@ class SiswaController extends Controller
             ], 500);
         }
     }
+
+    public function sendJawabanEssay(Request $request, $tes_id, $soal_id) {
+        $siswa = auth()->user()->siswa_profile_id;
+
+        try {
+            DB::beginTransaction();
+
+            DB::table('jawaban_pesertas')->insert([
+                "siswa_id" => $siswa,
+                "tes_id" => $tes_id,
+                "soal_id" => $soal_id,
+                "jawaban" => $request->jawaban
+            ]);
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Jawaban berhasil dikirim'
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
