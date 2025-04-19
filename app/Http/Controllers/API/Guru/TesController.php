@@ -202,4 +202,10 @@ class TesController extends Controller
             'data' => $tes
         ]);
     }
+
+    public function start(Request $request) {
+        $request->validate([
+            ""
+        ]);
+    }
 }

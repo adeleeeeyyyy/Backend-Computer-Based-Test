@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('siswa_profiles', function (Blueprint $table) {
+        Schema::create('log_siswa', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id')->unique();
-            $table->string('nis', 20)->unique();
-            $table->string('kelas', 20);
-            $table->string('jurusan', 50);
-            $table->enum('status', ['mengerjakan_ujian', 'nonaktif'])->default('nonaktif');
+            $table->string("tes_id");
+            $table->string("siswa_id");
+            $table->timestamp(  "jam_mulai");
+            $table->timestamp("jam_selesai");
             $table->timestamps();
-
-
         });
     }
 
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('siswa_profiles');
+        Schema::dropIfExists('log_siswa');
     }
 };
