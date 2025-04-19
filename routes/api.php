@@ -8,7 +8,8 @@ use App\Http\Controllers\API\Guru\TesController;
 use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\Guru\GuruController;
 use App\Http\Controllers\API\Guru\SoalController;
-
+use App\Http\Controllers\API\SesiTes\SesiTesController;
+use App\Http\Controllers\API\MonitoringAktivitas\MonitoringAktivitasController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -17,7 +18,7 @@ Route::get('/user', function (Request $request) {
 
 Route::prefix('auth')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
 });
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -48,6 +49,9 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('/delete/{soal_id}', [SoalController::class, 'deleteSoalById']);
         });
 
+<<<<<<< HEAD
+        
+=======
         Route::prefix('/jawaban')->group(function() {
             Route::post('/create/{soal_id}', [JawabanController::class,'createJawaban']);
             Route::put('/update/{jawaban_id}', [JawabanController::class,'updateJawaban']);
@@ -61,6 +65,26 @@ Route::middleware('auth:sanctum')->group(function () {
         });
 
 
+>>>>>>> 69307a7ead2062a6a9435f6ccbe64f01f4e7cc6d
 
     });
+    
+
+    
+
+});
+Route::prefix('/monitoring-aktivitas')->group(function() {
+    Route::get('/show', [MonitoringAktivitasController::class, 'index']);
+    Route::get('/{id}', [MonitoringAktivitasController::class, 'show']);
+    Route::post('/insert', [MonitoringAktivitasController::class, 'store']);
+    Route::put('/{id}', [MonitoringAktivitasController::class, 'update']);
+    Route::delete('/{id}', [MonitoringAktivitasController::class, 'destroy']);
+});
+
+Route::prefix('/sesi-tes')->group(function() {
+    Route::get('/', [SesiTesController::class, 'index']);
+    Route::get('/{id}', [SesiTesController::class, 'show']);
+    Route::post('/', [SesiTesController::class, 'store']);
+    Route::put('/{id}', [SesiTesController::class, 'update']);
+    Route::delete('/{id}', [SesiTesController::class, 'destroy']);
 });
