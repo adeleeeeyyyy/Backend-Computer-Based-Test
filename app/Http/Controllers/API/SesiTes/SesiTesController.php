@@ -27,7 +27,7 @@ class SesiTesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'siswa_id' => 'required|exists:siswa_profile,id',
+            'siswa_id' => 'required|exists:siswa_profiles,id',
             'tes_id' => 'required|exists:tes,id',
             'waktu_mulai' => 'nullable|date',
             'waktu_selesai' => 'nullable|date',
@@ -72,4 +72,24 @@ class SesiTesController extends Controller
             'message' => 'Sesi tes berhasil dihapus'
         ]);
     }
+
+    public function logSiswa($id)
+    {
+        $sesi = SesiTes::with(['siswa', 'tes', 'monitoringAktivitas'])->where('siswa_id', $id)->get();
+        return response()->json($sesi);
+    }
+    public function logSiswaById($siswa_id, $id)
+    {
+        $sesi = SesiTes::with(['siswa', 'tes', 'monitoringAktivitas'])->where('siswa_id', $siswa_id)->where('id', $id)->first();
+        return response()->json($sesi);
+    }
+    public function showBySiswaId($siswa_id)
+{
+    $sesi = SesiTes::with(['siswa', 'tes', 'monitoringAktivitas'])
+                  ->where('siswa_id', $siswa_id)
+                  ->get();
+
+    return response()->json($sesi);
+}
+
 }

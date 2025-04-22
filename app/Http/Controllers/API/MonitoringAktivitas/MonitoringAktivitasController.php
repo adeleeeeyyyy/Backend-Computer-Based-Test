@@ -65,8 +65,6 @@ class MonitoringAktivitasController extends Controller
             'data' => $data
         ]);
     }
-
-    // Menghapus data monitoring
     public function destroy($id)
     {
         $data = MonitoringAktivitas::findOrFail($id);
@@ -75,6 +73,11 @@ class MonitoringAktivitasController extends Controller
         return response()->json([
             'message' => 'Aktivitas berhasil dihapus'
         ]);
+    }
+    public function logAktivitasSiswa($sesi_id)
+    {
+        $sesi = SesiTes::with(['siswa', 'monitoringAktivitas'])->findOrFail($sesi_id);
+        return response()->json($sesi);
     }
 }
         
