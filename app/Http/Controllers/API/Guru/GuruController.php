@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\API\Guru;
 
+use App\Http\Controllers\Controller;
+use App\Models\JawabanPeserta;
+use App\Models\Soal;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class GuruController extends Controller
 {
@@ -42,6 +44,25 @@ class GuruController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Gagal mengambil data siswa',
+                'data' => $e->getMessage()
+            ], 400);
+        }
+    }
+
+    public function nilaiTesPilihanGanda($siswa_id, $tes_id) {
+        try {
+            $soal = Soal::where('tes_id', '=', $tes_id)->get();
+            $jawaban = JawabanPeserta::where('siswa_id', '=', $siswa_id)->where('tes_id', '=', $tes_id)->get();
+            return response()->json([
+                'success' => true,
+                'message' => 'Data jawaban berhasil diambil',
+                'soal' => $soal,
+                'jawaban' => $jawaban
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal mengambil data jawaban',
                 'data' => $e->getMessage()
             ], 400);
         }

@@ -95,4 +95,6 @@ class SiswaController extends Controller
             ], 500);
         }
     }
-}
+
+} 
+
