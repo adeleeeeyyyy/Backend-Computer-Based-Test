@@ -8,7 +8,8 @@ use App\Http\Controllers\API\Guru\TesController;
 use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\Guru\GuruController;
 use App\Http\Controllers\API\Guru\SoalController;
-
+use App\Http\Controllers\API\SesiTes\SesiTesController;
+use App\Http\Controllers\API\MonitoringAktivitas\MonitoringAktivitasController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -17,7 +18,7 @@ Route::get('/user', function (Request $request) {
 
 Route::prefix('auth')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
 });
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -48,19 +49,30 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('/delete/{soal_id}', [SoalController::class, 'deleteSoalById']);
         });
 
-        Route::prefix('/jawaban')->group(function() {
-            Route::post('/create/{soal_id}', [JawabanController::class,'createJawaban']);
-            Route::put('/update/{jawaban_id}', [JawabanController::class,'updateJawaban']);
-            Route::get('/show/{soal_id}', [JawabanController::class, 'seeAllJawabans']);
-            Route::delete('/delete/{jawaban_id}', [JawabanController::class, 'deleteJawaban']);
-        });
-
-        Route::prefix('/misc')->group(function() {
-            Route::get('/siswa', [GuruController::class, 'seeSiswa']);
-            Route::get('/siswa/{class}', [GuruController::class, 'seeSiswaByClass']);
-        });
-
-
+        
 
     });
+    
+
+    
+
+});
+Route::prefix('/monitoring-aktivitas')->group(function() {
+    Route::get('/show', [MonitoringAktivitasController::class, 'index']);
+    Route::get('/{id}', [MonitoringAktivitasController::class, 'show']);
+    Route::post('/insert', [MonitoringAktivitasController::class, 'store']);
+    Route::put('/{id}', [MonitoringAktivitasController::class, 'update']);
+    Route::delete('/{id}', [MonitoringAktivitasController::class, 'destroy']);
+    Route::get('/sesi/{sesi_id}', [MonitoringAktivitasController::class, 'showBySesiId']);
+    Route::get('/siswa/{siswa_id}', [MonitoringAktivitasController::class, 'logAktivitasSiswa']);
+});
+
+Route::prefix('/sesi-tes')->group(function() {
+    Route::get('/', [SesiTesController::class, 'index']);
+    Route::get('/{id}', [SesiTesController::class, 'show']);
+    Route::post('/insert', [SesiTesController::class, 'store']);
+    Route::put('/{id}', [SesiTesController::class, 'update']);
+    Route::delete('/{id}', [SesiTesController::class, 'destroy']);
+    Route::get('/siswa/{siswa_id}', [SesiTesController::class, 'showBySiswaId']);
+    Route::get('/tes/{tes_id}', [SesiTesController::class, 'showByTesId']);
 });
