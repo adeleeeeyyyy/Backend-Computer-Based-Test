@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Siswa;
 use App\Http\Controllers\Controller;
 use App\Models\SiswaProfile;
+use Illuminate\Http\Request;
 
 class SiswaController extends Controller
 {

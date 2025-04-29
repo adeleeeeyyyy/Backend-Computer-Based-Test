@@ -53,6 +53,7 @@ class GuruController extends Controller
         try {
             $soal = Soal::where('tes_id', '=', $tes_id)->get();
             $jawaban = JawabanPeserta::where('siswa_id', '=', $siswa_id)->where('tes_id', '=', $tes_id)->get();
+            
             return response()->json([
                 'success' => true,
                 'message' => 'Data jawaban berhasil diambil',
