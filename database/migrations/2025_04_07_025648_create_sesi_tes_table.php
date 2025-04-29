@@ -9,16 +9,21 @@ class CreateSesiTesTable extends Migration
     {
         Schema::create('sesi_tes', function (Blueprint $table) {
             $table->id();
-            $table->foreign('siswa_id')->references('id')->on('siswa');
-            $table->foreign('tes_id')->references('id')->on('tes');
+            $table->unsignedBigInteger('siswa_id');
+            $table->unsignedBigInteger('tes_id');
+    
             $table->timestamp('waktu_mulai')->nullable();
             $table->timestamp('waktu_selesai')->nullable();
             $table->string('status')->nullable();
             $table->string('ip_address', 45)->nullable();
             $table->string('browser', 100)->nullable();
             $table->timestamps();
+    
+            $table->foreign('siswa_id')->references('id')->on('siswa')->onDelete('cascade');
+            $table->foreign('tes_id')->references('id')->on('tes')->onDelete('cascade');
         });
     }
+    
 
     public function down()
     {
