@@ -7,6 +7,7 @@ use App\Models\JawabanPeserta;
 use App\Models\Soal;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GuruController extends Controller
 {
@@ -52,13 +53,27 @@ class GuruController extends Controller
     public function nilaiTesPilihanGanda($siswa_id, $tes_id) {
         try {
             $soal = Soal::where('tes_id', '=', $tes_id)->get();
-            $jawaban = JawabanPeserta::where('siswa_id', '=', $siswa_id)->where('tes_id', '=', $tes_id)->get();
+            $jawabanPeserta = DB::table('jawaban_pesertas as jp')
+            ->join('pilihan_jawabans as pj', 'jp.jawaban', '=', 'pj.jawaban_id')
+            ->select('jp.soal_id', 'jp.jawaban', 'pj.is_benar')
+            ->where('jp.siswa_id', $siswa_id)
+            ->where('jp.tes_id', $tes_id)
+            ->get();
+
+            $totalBenar = DB::table('jawaban_pesertas as jp')
+            ->join('pilihan_jawabans as pj', 'jp.jawaban', '=', 'pj.jawaban_id')
+            ->where('jp.siswa_id', $siswa_id)
+            ->where('jp.tes_id', $tes_id)
+            ->where('pj.is_benar', true)
+            ->count();
+
+
             
             return response()->json([
                 'success' => true,
-                'message' => 'Data jawaban berhasil diambil',
+                'message' => 'Data jawaban berhasil diambil', 
                 'soal' => $soal,
-                'jawaban' => $jawaban
+                'jawaban' => $jawabanPeserta
             ], 200);
         } catch (\Exception $e) {
             return response()->json([

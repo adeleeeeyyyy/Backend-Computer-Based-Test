@@ -118,6 +118,11 @@ class AuthController extends BaseController
         ]);
 
         $user = User::where('username', $request->username)->first();
+        if (!$user) {
+            return response()->json([
+                'message' => 'account not found',
+            ]);
+        }
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([

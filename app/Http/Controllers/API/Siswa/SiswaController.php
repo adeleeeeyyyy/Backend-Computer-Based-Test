@@ -16,8 +16,8 @@ class SiswaController extends Controller
         ], 200);
     }
 
-    public function show($id) {
-        $siswa = SiswaProfile::with("user")->find($id);
+    public function show($siswa_id) {
+        $siswa = SiswaProfile::where("user_id", '=',$siswa_id)->first();
         if ($siswa) {
             return response()->json([
                 "status" => true,
