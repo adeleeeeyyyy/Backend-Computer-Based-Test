@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Siswa;
 use App\Http\Controllers\Controller;
 use App\Models\SiswaProfile;
+use Illuminate\Http\Request;
 
 class SiswaController extends Controller
 {
@@ -15,8 +16,8 @@ class SiswaController extends Controller
         ], 200);
     }
 
-    public function show($id) {
-        $siswa = SiswaProfile::with("user")->find($id);
+    public function show($siswa_id) {
+        $siswa = SiswaProfile::where("user_id", '=',$siswa_id)->first();
         if ($siswa) {
             return response()->json([
                 "status" => true,
@@ -70,4 +71,3 @@ class SiswaController extends Controller
         }
     }
 }
-// Compare this snippet from app/Models/SiswaProfile.php:

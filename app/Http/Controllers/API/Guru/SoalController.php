@@ -148,4 +148,6 @@ class SoalController extends Controller
             ], 400);
         }
     }
+
+
 }
