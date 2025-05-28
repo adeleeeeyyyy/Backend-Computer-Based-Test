@@ -29,17 +29,18 @@ class SoalController extends Controller
 
             $soal_id = uniqid('soal_');
 
-            if ($request->hasFile('file_gambar')) {
-                $file_gambar = $request->file('file_gambar')->store('gambar_soal', 'public');
-            }
             $soal = Soal::create([
                 'jenis_soal' => $request->jenis_soal,
                 'pertanyaan' => $request->pertanyaan,
-                'file_gambar' => $file_gambar,
                 'poin' => $request->poin,
                 'tes_id' => $tes_id,
                 'soal_id' => $soal_id
             ]);
+
+            if ($request->hasFile('file_gambar')) {
+                $file_gambar = $request->file('file_gambar')->store('gambar_soal', 'public');
+                $soal->update(['file_gambar' => $file_gambar]);
+            }
 
             return response()->json([
                 'success'=> true,
