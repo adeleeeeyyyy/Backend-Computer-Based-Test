@@ -29,7 +29,9 @@ class SoalController extends Controller
 
             $soal_id = uniqid('soal_');
 
-            $file_gambar = $request->file('file_gambar')->store('gambar_soal', 'public');
+            if ($request->hasFile('file_gambar')) {
+                $file_gambar = $request->file('file_gambar')->store('gambar_soal', 'public');
+            }
             $soal = Soal::create([
                 'jenis_soal' => $request->jenis_soal,
                 'pertanyaan' => $request->pertanyaan,

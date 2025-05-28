@@ -4,7 +4,7 @@ services:
         container_name: sail-phpmyadmin
         restart: always
         ports:
-            - "8080:80"
+            - "8000:8000"
         environment:
             PMA_HOST: mysql
             PMA_PORT: 3306
@@ -15,7 +15,7 @@ services:
 
     laravel.test:
         command: 
-            php artisan octane:start --server=swoole --host=0.0.0.0 --port=80w
+            php artisan octane:start --server=swoole --host=0.0.0.0 --port=8000
         build:
             context: './vendor/laravel/sail/runtimes/8.4'
             dockerfile: Dockerfile
@@ -25,7 +25,7 @@ services:
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
-            - '${APP_PORT:-80}:80'
+            - '${APP_PORT:-8000}:8000'
             - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
         environment:
             WWWUSER: '${WWWUSER}'
