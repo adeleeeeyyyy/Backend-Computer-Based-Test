@@ -121,6 +121,8 @@ class SoalController extends Controller
             'poin' => 'nullable|integer',
         ]);
 
+        
+
         try {
             DB::beginTransaction();
 
