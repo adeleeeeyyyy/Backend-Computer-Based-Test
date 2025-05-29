@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('mapel');
             $table->json('kelas');
             $table->string('deskripsi');
-            $table->enum("semester", [0, 1, 2, 3, 4, 5, 6])->default("0");
+            $table->integer("semester");
             $table->time('jam_mulai');
             $table->integer('durasi_menit');
             $table->timestamp('tanggal_mulai');
