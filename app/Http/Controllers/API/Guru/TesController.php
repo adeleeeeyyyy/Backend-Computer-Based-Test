@@ -203,9 +203,4 @@ class TesController extends Controller
         ]);
     }
 
-    public function start(Request $request) {
-        $request->validate([
-            ""
-        ]);
-    }
 }

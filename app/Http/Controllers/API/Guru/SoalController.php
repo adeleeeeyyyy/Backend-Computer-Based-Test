@@ -6,6 +6,7 @@ use App\Models\Soal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\PilihanJawaban;
 use App\Models\Tes;
 
 class SoalController extends Controller
@@ -97,14 +98,16 @@ class SoalController extends Controller
                     'success' => false,
                     'message' => 'Soal tidak ditemukan atau tidak termasuk dalam tes ini'
                 ], 404);
+            } else {
+                PilihanJawaban::where('soal_id', '=', $soal_id)->delete();
+                $soal->delete();
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Soal sukses dihapus'
+                ], 200);
             }
 
-            $soal->delete();
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Soal sukse dihapus'
-            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
