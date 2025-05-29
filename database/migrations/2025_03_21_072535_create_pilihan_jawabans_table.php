@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamps();
 
             //FK
-            $table->foreign('soal_id')->references('soal_id')->on('soals');
+            $table->foreign('soal_id')->references('soal_id')->on('soals')->onDelete('cascade');
         });
     }
 
