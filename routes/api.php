@@ -48,8 +48,13 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('/deleteall/{tes_id}', [SoalController::class, 'deleteAllSoal']);
             Route::delete('/delete/{soal_id}', [SoalController::class, 'deleteSoalById']);
         });
-
         
+        Route::prefix('jawaban')->group(function() {
+            Route::post('/create/{soal_id}', [JawabanController::class,'createJawaban']);
+            Route::put('/update/{jawaban_id}', [JawabanController::class, 'updateJawaban']);
+            Route::get('/show/{soal_id}', [JawabanController::class, 'seeAllJawabans']);
+            Route::delete('/delete/{jawaban_id}', [JawabanController::class, 'deleteJawaban']);
+        });
 
     });
     
@@ -67,12 +72,12 @@ Route::prefix('/monitoring-aktivitas')->group(function() {
     Route::get('/siswa/{siswa_id}', [MonitoringAktivitasController::class, 'logAktivitasSiswa']);
 });
 
-Route::prefix('/sesi-tes')->group(function() {
-    Route::get('/', [SesiTesController::class, 'index']);
-    Route::get('/{id}', [SesiTesController::class, 'show']);
-    Route::post('/insert', [SesiTesController::class, 'store']);
-    Route::put('/{id}', [SesiTesController::class, 'update']);
-    Route::delete('/{id}', [SesiTesController::class, 'destroy']);
-    Route::get('/siswa/{siswa_id}', [SesiTesController::class, 'showBySiswaId']);
-    Route::get('/tes/{tes_id}', [SesiTesController::class, 'showByTesId']);
-});
+// Route::prefix('/sesi-tes')->group(function() {
+//     Route::get('/', [SesiTesController::class, 'index']);
+//     Route::get('/{id}', [SesiTesController::class, 'show']);
+//     Route::post('/insert', [SesiTesController::class, 'store']);
+//     Route::put('/{id}', [SesiTesController::class, 'update']);
+//     Route::delete('/{id}', [SesiTesController::class, 'destroy']);
+//     Route::get('/siswa/{siswa_id}', [SesiTesController::class, 'showBySiswaId']);
+//     Route::get('/tes/{tes_id}', [SesiTesController::class, 'showByTesId']);
+// });
