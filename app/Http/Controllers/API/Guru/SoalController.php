@@ -70,6 +70,29 @@ class SoalController extends Controller
         }
     }
 
+    public function showSoalById($soal_id) {
+        try {
+            $soal = Soal::where('soal_id', '=', $soal_id)->first();
+            if (!$soal) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Soal tidak ditemukan'
+                ], 404);
+            }
+
+            return response()->json([
+                'success' => true,
+                'data' => $soal
+            ], 200);
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 400);
+        }
+    }
+
     public function deleteAllSoal($tes_id) {
         try {
             $soals = Soal::where('tes_id', '=', $tes_id)->get();
