@@ -75,7 +75,7 @@ class SoalController extends Controller
             $cacheKey = "soal_with_jawaban_{$tes_id}";
             $soal = Cache::remember($cacheKey, 60, function () use ($tes_id) {
                 return Soal::where('tes_id', $tes_id)
-                    ->with('listJawaban:id,soal_id,jawaban_id,is_benar')
+                    ->with('listJawaban:id,soal_id,jawaban_id,is_benar,teks_pilihan')
                     ->select('pertanyaan', 'soal_id', 'jenis_soal', 'file_gambar', 'poin')
                     ->get();
             });
