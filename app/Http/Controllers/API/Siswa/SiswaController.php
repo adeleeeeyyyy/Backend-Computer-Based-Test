@@ -96,4 +96,31 @@ class SiswaController extends Controller
         }
     }
     
+    public function seeAllTes() {
+        $tes = DB::table('tes')->get();
+        $data = [];
+        foreach($tes as $t) {
+            $kelas = json_decode($t->kelas);
+            $data[] = [
+                "id" => $t->id,
+                "kode_tes" => $t->kode_tes,
+                "judul" => $t->judul,
+                "deskripsi" => $t->deskripsi,
+                "jam_mulai" => $t->jam_mulai,
+                "durasi_menit" => $t->durasi_menit,
+                "tanggal_mulai" => $t->tanggal_mulai,
+                "tanggal_selesai" => $t->tanggal_selesai,
+                "batas_percobaan" => $t->batas_percobaan,
+                "password_tes" => $t->password_tes,
+                "semester" => $t->semester,
+                "jenis_ujian" => $t->jenis_ujian,
+                "mapel" => $t->mapel,
+                "kelas" => $kelas
+            ];
+        }
+        return response()->json([
+            'success' => true,
+            'data' => $data
+        ], 200);
+    }
 }

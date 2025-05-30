@@ -27,6 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('/siswa')->group(function () {
         Route::post('/sendpg/{tes_id}/{soal_id}/{jawaban_id}', [SiswaController::class,'sendJawabanPilihanGanda']);
+        Route::get('/tes', [SiswaController::class, 'seeAllTes']);
     });
 
     //Route API guru
@@ -43,7 +44,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::prefix('/soal')->group(function() {
             Route::post('/create/{tes_id}', [SoalController::class,'createSoal']);
-            Route::get('/show/{tes_id}', [SoalController::class, 'showSoal']);
+            Route::get('/showall/{tes_id}', [SoalController::class, 'showSoal']);
+            Route::get('/show/{soal_id}', [SoalController::class, 'showSoalById']);
             Route::put('/update/{soal_id}', [SoalController::class, 'updateSoal']);
             Route::delete('/deleteall/{tes_id}', [SoalController::class, 'deleteAllSoal']);
             Route::delete('/delete/{soal_id}', [SoalController::class, 'deleteSoalById']);
