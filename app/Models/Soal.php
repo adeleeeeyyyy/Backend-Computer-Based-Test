@@ -14,4 +14,8 @@ class Soal extends Model
         'file_gambar', 
         'poin'
     ];
+
+    public function listJawaban() {
+        return $this->hasMany(PilihanJawaban::class, 'soal_id', 'soal_id');
+    }
 }

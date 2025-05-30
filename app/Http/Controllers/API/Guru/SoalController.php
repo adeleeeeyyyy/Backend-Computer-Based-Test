@@ -57,7 +57,7 @@ class SoalController extends Controller
 
     public function showSoal($tes_id) {
         try {
-            $soal = Soal::where('tes_id', '=', $tes_id)->get();
+            $soal = Soal::where('tes_id', '=', $tes_id)->with('listJawaban')->get();
             return response()->json([
                 'success' => true,
                 'data' => $soal
@@ -72,7 +72,7 @@ class SoalController extends Controller
 
     public function showSoalById($soal_id) {
         try {
-            $soal = Soal::where('soal_id', '=', $soal_id)->first();
+            $soal = Soal::where('soal_id', '=', $soal_id)->with('listJawaban')->first();
             if (!$soal) {
                 return response()->json([
                     'success' => false,
@@ -84,7 +84,7 @@ class SoalController extends Controller
                 'success' => true,
                 'data' => $soal
             ], 200);
-            
+
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
