@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\API\Siswa;
 use App\Http\Controllers\Controller;
 use App\Models\SiswaProfile;
+use App\Models\Soal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class SiswaController extends Controller
@@ -148,4 +150,49 @@ class SiswaController extends Controller
             ]
         ], 200);
     }
+    
+    public function showSoal($tes_id) {
+        try {
+            $cacheKey = "soal_with_jawaban_{$tes_id}";
+            $soal = Cache::remember($cacheKey, 60, function () use ($tes_id) {
+                return Soal::where('tes_id', $tes_id)
+                    ->with('listJawaban:id,soal_id,jawaban_id,is_benar,teks_pilihan')
+                    ->select('pertanyaan', 'soal_id', 'jenis_soal', 'file_gambar', 'poin')
+                    ->get();
+            });
+    
+            return response()->json([
+                'success' => true,
+                'data' => $soal
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 400);
+        }
+    }
+    public function showSoalById($soal_id) {
+        try {
+            $soal = Soal::where('soal_id', '=', $soal_id)->with('listJawaban')->first();
+            if (!$soal) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Soal tidak ditemukan'
+                ], 404);
+            }
+
+            return response()->json([
+                'success' => true,
+                'data' => $soal
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 400);
+        }
+    }
+
 }
