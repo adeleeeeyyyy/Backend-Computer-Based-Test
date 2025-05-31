@@ -29,8 +29,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/sendpg/{tes_id}/{soal_id}/{jawaban_id}', [SiswaController::class,'sendJawabanPilihanGanda']);
         Route::get('/tes', [SiswaController::class, 'seeAllTes']);
         Route::get('/tes/{tes_id}', [SiswaController::class, 'seeTesById']);
-        Route::get('/soal/{tes_id}', [SiswaController::class, 'showSoal']);
-        Route::get('/soal/{soal_id}', [SiswaController::class, 'showSoalById']);
+        Route::get('/soal/showall/{tes_id}', [SiswaController::class, 'showSoal']);
+        Route::get('/soal/show/{soal_id}', [SiswaController::class, 'showSoalById']);
     });
 
     //Route API guru
